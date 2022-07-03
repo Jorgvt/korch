@@ -6,6 +6,7 @@ __all__ = ['Module']
 #export
 import torch
 import torch.nn as nn
+from tqdm.auto import tqdm
 
 # Cell
 class Module(nn.Module):
@@ -21,7 +22,15 @@ class Module(nn.Module):
         loss = self.loss_fn(outputs, labels)
         loss.backward()
         self.optimizer.step()
-        return loss.item()
+
+        ## Obtain metrics if needed
+        if self.metrics is not None:
+            metrics = self.metrics(outputs, labels)
+            metrics = {name:value.item() for name, value in metrics.items()}
+            metrics['Loss'] = loss.item()
+        else:
+            metrics = {'Loss':loss.item()}
+        return metrics
 
     def validation_step(self, batch):
         self.eval()
@@ -30,21 +39,37 @@ class Module(nn.Module):
         with torch.no_grad():
             outputs = self(inputs)
             loss = self.loss_fn(outputs, labels)
-        return loss.item()
+
+        ## Obtain metrics if needed
+        if self.metrics is not None:
+            metrics = self.metrics(outputs, labels)
+            metrics = {name:value.item() for name, value in metrics.items()}
+            metrics['Loss'] = loss.item()
+        else:
+            metrics = {'Loss':loss.item()}
+        return metrics
 
     def fit(self, trainloader, epochs, validationloader=None):
-        for epoch in range(epochs):
-            for batch_idx, batch in enumerate(trainloader):
-                batch_loss = self.train_step(batch)
+        for epoch in tqdm(range(epochs), desc='Epochs', position=0):
+            pbar = tqdm(enumerate(trainloader), total=len(trainloader), position=1, leave=False)
+            for batch_idx, batch in pbar:
+                batch_metrics = self.train_step(batch)
+                pbar.set_description(get_pbar_description_from_batch_metrics(batch_metrics))
             if validationloader is not None:
-                for batch_idx, batch in enumerate(validationloader):
-                    batch_loss = self.validation_step(batch)
+                pbar = tqdm(enumerate(validationloader), total=len(validationloader), position=2, leave=False)
+                for batch_idx, batch in pbar:
+                    batch_metrics = self.validation_step(batch)
+                    pbar.set_description(get_pbar_description_from_batch_metrics(batch_metrics, 'Val_'))
+            self.metrics.reset()
 
     def compile(self, loss=None, optimizer=None, metrics=None):
+        """
+        metrics: torchmetrics.MetricCollection
+        """
         self.loss_fn = loss
         self.optimizer = optimizer
         self.metrics = metrics
 
     def evaluate(self, dataloader):
-        results = [self.validation_step(batch) for batch in dataloader]
+        results = [self.validation_step(batch) for batch in tqdm(dataloader, total=len(dataloader))]
         return sum(results)/len(results)

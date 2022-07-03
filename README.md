@@ -47,12 +47,13 @@ class SimpleModel(Module):
         return x
 ```
 
-Following the usual Keras way, we instantiate the model and compile it, providing the *loss* and the *optimizer*:
+Following the usual Keras way, we instantiate the model and compile it, providing the *loss* and the *optimizer*. *Metrics* can be provided as well, and are expected as `torchvision.MetricCollection`:
 
 ```
 model = SimpleModel()
 model.compile(loss=torch.nn.CrossEntropyLoss(),
-              optimizer=torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.9))
+              optimizer=torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.9),
+              metrics = MetricCollection([Accuracy()]))
 ```
 
 ```
