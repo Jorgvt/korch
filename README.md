@@ -10,7 +10,7 @@
 
 We can perform a very simple example using the Fashion MNIST dataset (as is done in the official [PyTorch docs](https://pytorch.org/tutorials/beginner/introyt/trainingyt.html).
 
-```python
+```
 transform = transforms.Compose(
     [transforms.ToTensor(),
     transforms.Normalize((0.5,), (0.5,))])
@@ -26,7 +26,7 @@ validation_loader = torch.utils.data.DataLoader(validation_set, batch_size=4, sh
 
 See that the only different with respect to basic PyTorch is that we're inhereting from our custom `Module`, not from PyTorch's `nn.Module`:
 
-```python
+```
 class SimpleModel(Module):
     def __init__(self):
         super(SimpleModel, self).__init__()
@@ -49,13 +49,13 @@ class SimpleModel(Module):
 
 Following the usual Keras way, we instantiate the model and compile it, providing the *loss* and the *optimizer*:
 
-```python
+```
 model = SimpleModel()
 model.compile(loss=torch.nn.CrossEntropyLoss(),
               optimizer=torch.optim.SGD(model.parameters(), lr=0.001, momentum=0.9))
 ```
 
-```python
+```
 model
 ```
 
@@ -74,7 +74,7 @@ model
 
 
 
-```python
+```
 model.evaluate(training_loader), model.evaluate(validation_loader)
 ```
 
@@ -85,11 +85,11 @@ model.evaluate(training_loader), model.evaluate(validation_loader)
 
 
 
-```python
+```
 model.fit(trainloader=training_loader, epochs=1, validationloader=validation_loader)
 ```
 
-```python
+```
 model.evaluate(training_loader), model.evaluate(validation_loader)
 ```
 
