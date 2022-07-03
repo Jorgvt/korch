@@ -8,6 +8,14 @@ import torch
 import torch.nn as nn
 from tqdm.auto import tqdm
 
+# Internal Cell
+#exporti
+def get_pbar_description_from_batch_metrics(batch_metrics, prefix=""):
+    description = ""
+    for name, value in batch_metrics.items():
+        description += f'{prefix}{name}: {value:.2f} '
+    return description[:-1]
+
 # Cell
 class Module(nn.Module):
     def __init__(self, **kwargs):

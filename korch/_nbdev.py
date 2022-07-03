@@ -2,7 +2,8 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"Module": "00_core.ipynb"}
+index = {"get_pbar_description_from_batch_metrics": "00_core.ipynb",
+         "Module": "00_core.ipynb"}
 
 modules = ["core.py"]
 
