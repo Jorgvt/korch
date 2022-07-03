@@ -79,5 +79,13 @@ class Module(nn.Module):
         self.metrics = metrics
 
     def evaluate(self, dataloader):
-        results = [self.validation_step(batch) for batch in tqdm(dataloader, total=len(dataloader))]
-        return sum(results)/len(results)
+        for i, batch in tqdm(enumerate(dataloader), total=len(dataloader)):
+            if i == 0:
+                results = self.validation_step(batch)
+                results = {name:[value] for name, value in results.items()}
+            else:
+                result = self.validation_step(batch)
+                for name, value in result.items():
+                    results[name].append(value)
+        results = {name:sum(values)/len(values) for name,values in results.items()}
+        return results
