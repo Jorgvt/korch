@@ -6,7 +6,7 @@
 
 `pip install korch`
 
-### Example of usage
+## Example of usage
 
 We can perform a very simple example using the Fashion MNIST dataset (as is done in the official [PyTorch docs](https://pytorch.org/tutorials/beginner/introyt/trainingyt.html).
 
