@@ -77,6 +77,7 @@ class Module(nn.Module):
         self.metrics = metrics
 
     def evaluate(self, dataloader):
+        self.eval()
         for i, batch in tqdm(enumerate(dataloader), total=len(dataloader)):
             if i == 0:
                 results = self.validation_step(batch)
