@@ -18,6 +18,11 @@ def get_pbar_description_from_batch_metrics(batch_metrics, prefix=""):
 
 # Cell
 class History(dict):
+    """
+    This object inherits from base `dict` to provide a `History` object similar to Keras',
+    allowing the automatic logging of the loss and the different metrics during training.
+    It's automatically used in `.fit()` (as it is in Keras).
+    """
     def log_dict(self, data, prefix=""):
         """
         Parameters
@@ -49,6 +54,11 @@ class History(dict):
 
 # Cell
 class Module(nn.Module):
+    """
+    Modification of PyTorch base `nn.Module` to provide a basic
+    predefined training loop with logging and a Keras-like interface
+    to be able to customize the training.
+    """
     def __init__(self, **kwargs):
         super(Module, self).__init__(**kwargs)
 
