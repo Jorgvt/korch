@@ -22,8 +22,6 @@ class Module(nn.Module):
         super(Module, self).__init__(**kwargs)
 
     def train_step(self, batch):
-        self.train()
-
         inputs, labels = batch
         self.optimizer.zero_grad()
         outputs = self(inputs)
@@ -41,8 +39,6 @@ class Module(nn.Module):
         return metrics
 
     def validation_step(self, batch):
-        self.eval()
-
         inputs, labels = batch
         with torch.no_grad():
             outputs = self(inputs)
@@ -61,9 +57,11 @@ class Module(nn.Module):
         for epoch in tqdm(range(epochs), desc='Epochs', position=0):
             pbar = tqdm(enumerate(trainloader), total=len(trainloader), position=1, leave=False)
             for batch_idx, batch in pbar:
+                self.train()
                 batch_metrics = self.train_step(batch)
                 pbar.set_description(get_pbar_description_from_batch_metrics(batch_metrics))
             if validationloader is not None:
+                self.eval()
                 pbar = tqdm(enumerate(validationloader), total=len(validationloader), position=2, leave=False)
                 for batch_idx, batch in pbar:
                     batch_metrics = self.validation_step(batch)
