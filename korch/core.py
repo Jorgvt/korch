@@ -40,9 +40,8 @@ class Module(nn.Module):
 
     def validation_step(self, batch):
         inputs, labels = batch
-        with torch.no_grad():
-            outputs = self(inputs)
-            loss = self.loss_fn(outputs, labels)
+        outputs = self(inputs)
+        loss = self.loss_fn(outputs, labels)
 
         ## Obtain metrics if needed
         if self.metrics is not None:
@@ -64,7 +63,8 @@ class Module(nn.Module):
                 self.eval()
                 pbar = tqdm(enumerate(validationloader), total=len(validationloader), position=2, leave=False)
                 for batch_idx, batch in pbar:
-                    batch_metrics = self.validation_step(batch)
+                    with torch.no_grad():
+                        batch_metrics = self.validation_step(batch)
                     pbar.set_description(get_pbar_description_from_batch_metrics(batch_metrics, 'Val_'))
             self.metrics.reset()
 
