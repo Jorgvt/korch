@@ -58,6 +58,8 @@ class Module(nn.Module):
     Modification of PyTorch base `nn.Module` to provide a basic
     predefined training loop with logging and a Keras-like interface
     to be able to customize the training.
+    This Module implements as well as a `compile` method and an `evaluate` one.
+    All is done to obtain a behaviour as similar to Keras as possible.
     """
     def __init__(self, **kwargs):
         super(Module, self).__init__(**kwargs)

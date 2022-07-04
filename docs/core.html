@@ -63,13 +63,6 @@ It's automatically used in <code>.fit()</code> (as it is in Keras).</p>
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This object inherits from base <code>dict</code> to provide a <a href="/korch/core.html#History"><code>History</code></a> object similar to Keras', allowing the automatic logging of the loss and the different metrics during training. It's automatically used in <code>.fit()</code> (as it is in Keras).</p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -85,7 +78,9 @@ It's automatically used in <code>.fit()</code> (as it is in Keras).</p>
 </blockquote>
 <p>Modification of PyTorch base <code>nn.Module</code> to provide a basic
 predefined training loop with logging and a Keras-like interface
-to be able to customize the training.</p>
+to be able to customize the training.
+This Module implements as well as a <code>compile</code> method and an <code>evaluate</code> one.
+All is done to obtain a behaviour as similar to Keras as possible.</p>
 
 </div>
 
@@ -104,13 +99,6 @@ to be able to customize the training.</p>
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This Module implements a basic training loop similar to Keras', as well as a <code>compile</code> method and an <code>evaluate</code> one. All is done to obtain a behaviour as similar to Keras as possible.</p>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Example-of-usage">Example of usage<a class="anchor-link" href="#Example-of-usage"> </a></h3>
