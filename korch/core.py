@@ -55,9 +55,9 @@ class Module(nn.Module):
 
     def fit(self, trainloader, epochs, validationloader=None):
         for epoch in tqdm(range(epochs), desc='Epochs', position=0):
+            self.train()
             pbar = tqdm(enumerate(trainloader), total=len(trainloader), position=1, leave=False)
             for batch_idx, batch in pbar:
-                self.train()
                 batch_metrics = self.train_step(batch)
                 pbar.set_description(get_pbar_description_from_batch_metrics(batch_metrics))
             if validationloader is not None:
