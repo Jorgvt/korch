@@ -12,9 +12,6 @@ entries:
     - output: web,pdf
       title: Korch
       url: core.html
-    - output: web,pdf
-      title: Title
-      url: callbacks.html
     output: web
     title: korch
   output: web
