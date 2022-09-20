@@ -23,13 +23,13 @@ training_set = torchvision.datasets.FashionMNIST('./data', train=True, transform
 validation_set = torchvision.datasets.FashionMNIST('./data', train=False, transform=transform, download=True)
 
 # Create data loaders for our datasets; shuffle for training, not for validation
-training_loader = torch.utils.data.DataLoader(training_set, batch_size=4, shuffle=True, num_workers=2)
-validation_loader = torch.utils.data.DataLoader(validation_set, batch_size=4, shuffle=False, num_workers=2)
+training_loader = torch.utils.data.DataLoader(training_set, batch_size=4, shuffle=True, num_workers=0)
+validation_loader = torch.utils.data.DataLoader(validation_set, batch_size=4, shuffle=False, num_workers=0)
 ```
 
 See that the only different with respect to basic PyTorch is that we’re
 inhereting from our custom
-[`Module`](https://Jorgvt.github.io/korch/core.html#module), not from
+[`Module`](https://Jorgvt.github.io/korch/nn.html#module), not from
 PyTorch’s `nn.Module`:
 
 ``` python
