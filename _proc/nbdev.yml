@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "korch"
+  site-url: "https://Jorgvt.github.io/korch/"
+  description: "Simple tools to provide a Keras-like interface to PyTorch."
+  repo-branch: master
+  repo-url: "https://github.com/Jorgvt/korch/tree/master/"

@@ -1,5 +1,5 @@
 .jekyll-cache/
-Gemfile.lock  
+Gemfile.lock
 *.bak
 .gitattributes
 .last_checked
@@ -142,4 +142,8 @@ checklink/cookies.txt
 .gitconfig
 
 # data
+data/_docs/
+sidebar.yml
+
+/.quarto/
 data/
